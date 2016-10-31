@@ -11,17 +11,18 @@ router.get('/', function(req, res, next) {
 // post requests take content from req.params && req.body
 // and then can res.json the result (or res.render, etc)
 // router.post('/create', insertIntoParties);
-router.get('/form', renderForm);
+router.get('/login', renderForm);
 // router.post('/register', attemptToRegister);
 
 // router.post('/login', attemptToLogin);
 
 function renderForm(req, res, next) {
-  res.render('form', {});
+  res.render('login', {});
 };
 
+
 // purpose: to recieve info from your form and then encryt it and put it in the DB
-router.post('/register', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   console.log(req.session);
 
   var password = req.body.password_hash;
