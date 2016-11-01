@@ -25,27 +25,24 @@ function createID (req, res, next) {
     console.log(result.attributes.id);
     req.session.user = result;
     req.session.online = result.attributes.id;
-    req.session.isLoggedIn = true;    
+    req.session.isLoggedIn = true;
  });
 };
 
 function userLogin (req, res, next) {
-  console.log(req.session.user);
-  if (req.session.isLoggedIn) {
-
-  } else {
-
-  }
+  // console.log(req.session.user);
+  // if (req.session.isLoggedIn) {
+  // } else {
+  // }
     // var password = req.body.password_hash;
     Account.where('username', req.body.username).fetch().then(
         function(result) {
             var attempt = comparePasswordHashes(req.body.password_hash, result.attributes.password_hash);
             res.json({'is_logged_in': attempt });
-            console.log(req.session);
             req.session.id = result.attributes.id;
             req.session.username = result.attributes.username;
             req.session.isLoggedIn = true;
-            console.log(req.session.username);
+            console.log(req.session);
  });
 };
 
@@ -64,6 +61,15 @@ function renderLogin (req, res, next) {
   res.render('login', {});
 };
 
+
+// router.get('/logout', function (req, res) {
+//   req.session = null;
+//   res.send([
+//     'You are now logged out.',
+//     '&lt;br/>',
+//     res.redirect('/')
+//   ].join(''));
+// });
 
 
 module.exports = router;

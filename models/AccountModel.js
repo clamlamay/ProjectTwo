@@ -1,8 +1,15 @@
-var db = require('./db');
-var bookshelf = require('bookshelf')(db);
+var bookshelf = require('./db')
 
-var AccountModel = bookshelf.Model.extend({
-  tableName: 'users_accounts'
+//whatever table this table relates too, require other model
+require('./ContentModel')
+
+var Account = bookshelf.Model.extend({
+  tableName: 'users',
+  contents: function(){
+  return this.hasMany('Content')//refers to the table its related too
+}
 });
 
-module.exports = AccountModel;
+// module.exports = AccountModel;
+
+module.exports = bookshelf.model('Account', Account);
