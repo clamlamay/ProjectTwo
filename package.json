@@ -20,6 +20,7 @@
     "knex": "^0.12.6",
     "lodash": "^4.16.4",
     "morgan": "~1.7.0",
+    "multer": "^1.2.0",
     "mysql": "^2.11.1",
     "node-sass-middleware": "0.8.0",
     "serve-favicon": "~2.3.0"

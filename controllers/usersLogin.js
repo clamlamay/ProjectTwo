@@ -12,75 +12,60 @@ router.get('/', function(req, res, next) {
 // and then can res.json the result (or res.render, etc)
 // router.post('/create', insertIntoParties);
 router.get('/login', renderForm);
-// router.post('/register', attemptToRegister);
 
-// router.post('/login', attemptToLogin);
+router.post('/login', attemptToLogin);
 
 function renderForm(req, res, next) {
   res.render('login', {});
 };
 
 
-// purpose: to recieve info from your form and then encryt it and put it in the DB
+// purpose: to recieve info from your form and then encrypt it and put it in the DB
 router.post('/login', function(req, res, next) {
-  console.log(req.session);
-
-  var password = req.body.password_hash;
-  // to hash a password, we need to define a salt value and use the bcrypt library
-  var salt = 10 ;
-  var hash = bcrypt.hashSync(password, salt);
-  console.log(hash);
-
-  var user = new Account ({
-    username: req.body.username,
-    password_hash: hash,
-    email: req.body.email
-    })
-      .save()
-      .then(function(result) {
-        // res.json(result)
-        // the below redirects to a new route
-        console.log('-----------');
-        console.log(result.attributes.id)
-        console.log('-----------');
-
-        // attach the id to the session object (note, i can attach anything)
-        req.session.theResultFromOurModelInsertion = result.attributes.id ;
-        // something along these lines will allow you to show certain info ONLY to logged in users
-        req.session.isLoggedIn = true;
-
-        // res.redirect('/')
-        res.render('response', result.attributes);
-
-      });
-});
-
-// UNABLE TO GET THE BELOW WORKING YET.
-// .get at the address of / will tell the browser where to look
-router.get('/', function(req, res, next) {
-
-  // we can use the session object to help query the current user
-  // during login and registration is where we'll want to recognize users
-  // when they logout, set session to null
-  console.log(req.session)
-
-  Account.where({id: req.session.theResultFromOurModelInsertion })
-      .fetch()
-      .then(function(user) {
-        console.log(user.attributes);//puts info into the console
-        //res.render() to GET your data
-        //index is the page in the views folder to render info on
-        // res.render('index', user.attributes);
-
-        //   res.render('response', user.attributes);
-      })
-      // if we get any errors, the below will capture those errors and console them for you to see.
-      .catch(function(error) {
-        console.log(error);
-      })
+    console.log(req.session);
+})
 
 
-});
 
-module.exports = router;
+// function attemptToLogin(req, res, next) {
+//     var password = req.body.password_hash;
+//     Account.where({username: req.session.theResultsFromOurModelInsertion})
+//         .fetch()
+//         .then(
+//         function (result) {
+//             var attempt = comparePasswordHashes(req.body.password_hash, result.attributes.password_hash);
+//             req.session.theResultsFromOurModelInsertion = result.attributes.username;
+//             if (attempt === true) {
+//                 res.json({'is_logged_in': attempt });
+//             }
+//             else {
+//                 res.json({'is_logged_in': attempt });
+//             }
+//             // res.json({'is_logged_in': attempt});
+//         })};
 
+function attemptToLogin(req, res, next) {
+    var password = req.body.password_hash;
+    // who is our user?
+    Account.where('username', req.body.username)
+        .fetch()
+        .then(
+        function(result) {
+            // we now have our user: result
+            // next, we need their password! (to compare it)
+            // bcrypt.compareSync(password, hash); // returns true/false
+            // console.log(result);
+            // model attributes on results are sometimes stored on results.attributes
+            var attempt = comparePasswordHashes(req.body.password_hash, result.attributes.password_hash);
+            // then we share the results
+            res.json({'is_logged_in': attempt });
+        }
+    )
+};
+
+function comparePasswordHashes (input, db) {
+    //   var hash = createPasswordHash(input);
+    return bcrypt.compareSync(input, db);
+}
+
+module.exports = router ;

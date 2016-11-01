@@ -1,8 +1,32 @@
-<form action="/submit/upload-content" method="post">
+<!--<form action="/submit/upload-content" method="post">-->
+    <!--<input type="text" name="title" placeholder="What's it all about?" required>-->
+    <!--<input type="text" name="location" placeholder="Upload your file here." required>-->
+    <!--<input type="text" name="comment" placeholder="Tell us more!" required>-->
+    <!--<input type="text" name="user_id" placeholder="user id" required>-->
+
+    <!--<input type="submit" value="Submit"></input>-->
+<!--</form>-->
+
+
+
+<!--<form enctype="multipart/form-data" action="/submit/upload-content" method="post">-->
+    <!--<input type="file" name="location" />-->
+    <!--<input type="submit" value="Upload Image" name="submit" />-->
+<!--</form>-->
+
+
+
+<!--<form action="/pictures/upload" method="POST" enctype="multipart/form-data">-->
+    <!--Select an image to upload:-->
+    <!--<input type="file" name="image">-->
+    <!--<input type="submit" value="Upload Image">-->
+<!--</form>-->
+
+<form action="/submit/upload-content" method="post" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="What's it all about?" required>
-    <input type="text" name="location" placeholder="Upload your file here." required>
+    <input type="file" name="location" placeholder="Upload your file here." required>
     <input type="text" name="comment" placeholder="Tell us more!" required>
     <input type="text" name="user_id" placeholder="user id" required>
 
-    <input type="submit" value="Submit"></input>
+    <input type="submit" value="Upload Image"></input>
 </form>

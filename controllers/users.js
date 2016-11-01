@@ -4,82 +4,60 @@ var Account = require('../models/AccountModel');
 var bcrypt = require('bcryptjs');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-// get requests show content
-// post requests take content from req.params && req.body
-// and then can res.json the result (or res.render, etc)
-// router.post('/create', insertIntoParties);
+
 router.get('/form', renderForm);
-// router.post('/register', attemptToRegister);
+router.post('/register', createID);
+router.get('/login', renderLogin);
+router.post('/login', userLogin);
 
-// router.post('/login', attemptToLogin);
+function createID (req, res, next) {
+    var password = req.body.password_hash;
+    var salt = 10;
+    var hash = bcrypt.hashSync(password, salt);
+    var user = {
+        username: req.body.username,
+        password_hash: hash,
+        email: req.body.email
+    };
 
-function renderForm(req, res, next) {
-  res.render('form', {});
+    var Model = new Account(user).save().then(function(result) {
+        console.log(user);
+        // res.render('Welcome');
+        //   console.log(result.attributes.id);
+        req.session.user = result;
+        req.session.online = result.attributes.id;
+        req.session.isLoggedIn = true;
+        // // res.redirect('/')
+        //  console.log(req.session);
+
+    })
 };
 
-// purpose: to recieve info from your form and then encryt it and put it in the DB
-router.post('/register', function(req, res, next) {
-  console.log(req.session);
+function userLogin (req, res, next) {
+    console.log(req.session.user);
+    if (req.session.isLoggedIn === true) {
 
-  var password = req.body.password_hash;
-  // to hash a password, we need to define a salt value and use the bcrypt library
-  var salt = 10 ;
-  var hash = bcrypt.hashSync(password, salt);
-  console.log(hash);
-
-  var user = new Account ({
-    username: req.body.username,
-    password_hash: hash,
-    email: req.body.email
-    })
-      .save()
-      .then(function(result) {
-        // res.json(result)
-        // the below redirects to a new route
-        console.log('-----------');
-        console.log(result.attributes.id)
-        console.log('-----------');
-
-        // attach the id to the session object (note, i can attach anything)
-        req.session.theResultFromOurModelInsertion = result.attributes.id ;
-        // something along these lines will allow you to show certain info ONLY to logged in users
-        req.session.isLoggedIn = true;
-
-        // res.redirect('/')
-        res.render('response', result.attributes);
-
-      });
-});
-
-// UNABLE TO GET THE BELOW WORKING YET.
-// .get at the address of / will tell the browser where to look
-router.get('/', function(req, res, next) {
-
-  // we can use the session object to help query the current user
-  // during login and registration is where we'll want to recognize users
-  // when they logout, set session to null
-  console.log(req.session)
-
-  Account.where({id: req.session.theResultFromOurModelInsertion })
-      .fetch()
-      .then(function(user) {
-        console.log(user.attributes);//puts info into the console
-        //res.render() to GET your data
-        //index is the page in the views folder to render info on
-        // res.render('index', user.attributes);
-
-        //   res.render('response', user.attributes);
-      })
-      // if we get any errors, the below will capture those errors and console them for you to see.
-      .catch(function(error) {
-        console.log(error);
-      })
-
-
-});
-
+    } else {
+    // var password = req.body.password_hash;
+    Account.where('username', req.body.username).fetch().then(
+        function(result) {
+            var attempt = comparePasswordHashes(req.body.password_hash, result.attributes.password_hash);
+            res.json({'is_logged_in': attempt });
+            // console.log(req.session);
+            req.session.id = result.attributes.id;
+            req.session.username = result.attributes.username;
+            req.session.isLoggedIn = true;
+            console.log(req.session);
+        });
+}};
+function comparePasswordHashes (input, db) {
+    // var hash = createPasswordHash(input);
+    return bcrypt.compareSync(input, db);
+};
+function renderForm (req, res, next) {
+    res.render('form', {});
+};
+function renderLogin (req, res, next) {
+    res.render('login', {});
+};
 module.exports = router;
-
