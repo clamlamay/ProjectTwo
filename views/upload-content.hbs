@@ -2,7 +2,7 @@
     <!--<input type="text" name="title" placeholder="What's it all about?" required>-->
     <!--<input type="text" name="location" placeholder="Upload your file here." required>-->
     <!--<input type="text" name="comment" placeholder="Tell us more!" required>-->
-    <!--<input type="text" name="user_id" placeholder="user id" required>-->
+    <!--&lt;!&ndash;<input type="text" name="user_id" placeholder="user id" required>&ndash;&gt;-->
 
     <!--<input type="submit" value="Submit"></input>-->
 <!--</form>-->
@@ -22,11 +22,14 @@
     <!--<input type="submit" value="Upload Image">-->
 <!--</form>-->
 
+
+
+
 <form action="/submit/upload-content" method="post" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="What's it all about?" required>
     <input type="file" name="location" placeholder="Upload your file here." required>
     <input type="text" name="comment" placeholder="Tell us more!" required>
-    <input type="text" name="user_id" placeholder="user id" required>
+    <!--<input type="text" name="user_id" placeholder="user id" required>-->
 
     <input type="submit" value="Upload Image"></input>
 </form>

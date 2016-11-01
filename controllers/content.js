@@ -4,17 +4,14 @@
 
 var express = require('express');
 var multer = require('multer');
-var app = express();
-// var port = 3000;
-//
-// app.set('port', port);
+var router = express();
 
-app.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
 
-app.get('/upload-content', renderForm);
+router.get('/upload-content', renderForm);
 // router.post('/upload', uploadFile);
 
 function renderForm(req, res, next) {
@@ -36,30 +33,30 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage}).single('location');
 
 
-app.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.sendFile('response2');
 });
 
 // WILL NEED TO WORK ON A WAY TO POST THE NEW CONTENT SO IT SHOWS UP IMMEDIATELY
 //Posting the file upload
-app.post('/upload-content', function(req, res, next) {
+router.post('/upload-content', function(req, res, next) {
     upload(req, res, function(err) {
         if(err) {
             console.log('Error Occured');
             return;
         }
         console.log(req.file);
-        res.end('Your File Uploaded');
+        //res.end('Your File Uploaded');
         console.log('Photo Uploaded');
     })
 
 
-
+// added this.  does not currently work.
     new Content ({
         title: req.body.title,
-        location: req.body.location,
+        // location: req.body.location,
         comment: req.body.comment,
-        user_id: req.body.user_id
+        user_id: req.session.user
     })
         .save()
         .then(function(result) {
@@ -77,7 +74,7 @@ app.post('/upload-content', function(req, res, next) {
 
 
 
-
+//
 //
 //
 // var express = require('express');
@@ -96,21 +93,20 @@ app.post('/upload-content', function(req, res, next) {
 //     res.render('upload-content', {});
 // };
 //
-//
+// //session.user.ModelBase.attributes.id
 // router.post('/upload-content', function(req, res, next) {
-//
+//     console.log(req.session)
 //     new Content ({
 //         title: req.body.title,
 //         location: req.body.location,
 //         comment: req.body.comment,
-//         user_id: req.body.user_id
-//     })
-//         .save()
+//         user_id: req.session.user
+//     }).save()
 //         .then(function(result) {
 //             // res.json(result)
 //             // the below redirects to a new route
 //             console.log('-----------');
-//             console.log(result.attributes.id)
+//             console.log(result)
 //             console.log('-----------');
 //
 //
@@ -135,4 +131,4 @@ app.post('/upload-content', function(req, res, next) {
 
 
 
-module.exports = app;
+module.exports = router ;

@@ -1,5 +1,4 @@
 'use strict';
-
 require('dotenv').config(); //# dot-env
 
 var db = require('knex')({	//# knex
@@ -12,6 +11,12 @@ var db = require('knex')({	//# knex
     }
 });
 
+// will help our models load correctly
+var bookshelf = require('bookshelf')(db);
+
+bookshelf.plugin('registry');
+
+module.exports = bookshelf ;
 
 // var db = require('knex')({	//# knex
 //     client: 'mysql',
@@ -23,4 +28,4 @@ var db = require('knex')({	//# knex
 //     }
 // });
 
-module.exports = db;
+// module.exports = db;
