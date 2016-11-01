@@ -14,12 +14,12 @@ create table contents (
 	title varchar(255) not null,
 	location varchar(255) not null,
 	comment varchar(255) not null,
-	user_id int not null references users(id),
+	user_id int references users(id),
 	primary key(id)
 );
 
 insert into contents (id, title, location, comment, user_id) values ('1', 'cat', 'cat cat', 'meow', '1');
-	insert into content_tables (id, title, location, comment, user_id) values ('2', 'dog', 'dog dog', 'woof', '2');
+insert into contents (id, title, location, comment, user_id) values ('2', 'dog', 'dog dog', 'woof', '2');
 
 create user 'admin'@'localhost' identified by 'admin';
 GRANT ALL PRIVILEGES ON clambake.* to 'admin'@'localhost';

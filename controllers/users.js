@@ -9,6 +9,7 @@ router.get('/form', renderForm);
 router.post('/register', createID);
 router.get('/login', renderLogin);
 router.post('/login', userLogin);
+router.get('/logout', logOut); 
 
 function createID (req, res, next) {
   var password = req.body.password_hash;
@@ -20,38 +21,35 @@ function createID (req, res, next) {
     email: req.body.email
     };
   var Model = new Account(user).save().then(function(result) {
-    console.log(user);
-    res.render('Welcome');
-    console.log(result.attributes.id);
-    req.session.user = result;
-    req.session.online = result.attributes.id;
+    // console.log(user);
+    // console.log(result.attributes.id);
+    req.session.user = result.attributes.id;
     req.session.isLoggedIn = true;
+    res.redirect('/submit/upload-content');
+    // return user;
  });
 };
 
 function userLogin (req, res, next) {
   // console.log(req.session.user);
-  // if (req.session.isLoggedIn) {
-  // } else {
-  // }
-    // var password = req.body.password_hash;
+  if (req.session.isLoggedIn === true) {
+    res.redirect('/submit/upload-content');
+  } else {
     Account.where('username', req.body.username).fetch().then(
         function(result) {
             var attempt = comparePasswordHashes(req.body.password_hash, result.attributes.password_hash);
-            res.json({'is_logged_in': attempt });
-            req.session.id = result.attributes.id;
-            req.session.username = result.attributes.username;
+            req.session.user = result.attributes.id;
             req.session.isLoggedIn = true;
-            console.log(req.session);
- });
-};
+            res.redirect('/submit/upload-content');
+    });
+  }};
+
 
 
 function comparePasswordHashes (input, db) {
   // var hash = createPasswordHash(input);
   return bcrypt.compareSync(input, db);
 };
-
 
 function renderForm (req, res, next) {
   res.render('form', {});
@@ -61,15 +59,13 @@ function renderLogin (req, res, next) {
   res.render('login', {});
 };
 
+function logOut (req, res, next){
+  req.session.isLoggedIn = false;
+  res.render('logout', {});
+};
 
-// router.get('/logout', function (req, res) {
-//   req.session = null;
-//   res.send([
-//     'You are now logged out.',
-//     '&lt;br/>',
-//     res.redirect('/')
-//   ].join(''));
-// });
+
+  
 
 
 module.exports = router;
