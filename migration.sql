@@ -15,11 +15,13 @@ create table contents (
 	location varchar(255) not null,
 	comment varchar(255) not null,
 	user_id int references users(id),
+	image varchar(255),
+	username varchar(255) references users(username),
 	primary key(id)
 );
 
-insert into contents (id, title, location, comment, user_id) values ('1', 'cat', 'cat cat', 'meow', '1');
-insert into contents (id, title, location, comment, user_id) values ('2', 'dog', 'dog dog', 'woof', '2');
+insert into contents (id, title, location, comment, user_id, image) values ('1', 'cat', 'cat cat', 'meow', '1', 'yahoo.jpg');
+insert into contents (id, title, location, comment, user_id, image) values ('2', 'dog', 'dog dog', 'woof', '2', 'yahoo.jpg');
 
 create user 'admin'@'localhost' identified by 'admin';
 GRANT ALL PRIVILEGES ON clambake.* to 'admin'@'localhost';

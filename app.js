@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+var multer = require('multer');
+
 var routes = require('./controllers/index');
 var users = require('./controllers/users');
 var content = require('./controllers/content');
@@ -37,8 +39,8 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/submit', content);
+app.use('/', users);
+app.use('/', content);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

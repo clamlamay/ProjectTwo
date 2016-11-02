@@ -1,57 +1,22 @@
 
-<div class="container">
+
+
+
+
+
+  
+   Welcome {{username}}
+
+
 <div class="card-panel teal lighten-2">
 
 
-<form action="/submit/upload-content" method="post">
+<form action="/upload-content" method="post">
     <input type="text" name="title" placeholder="What's it all about?" required>
     <input type="text" name="location" placeholder="Upload your file here." required>
     <input type="text" name="comment" placeholder="Tell us more!" required>
-{{!--     <input type="text" name="user_id" placeholder="user_id" required>
- --}}
     <input type="submit" value="Submit"></input>
 </form>
 
+
 </div>
-
-
-  {{!-- <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Textarea</label>
-        </div>
-      </div>
-    </form>
-  </div>
- </div>       
-
-
-  <form action="#">
-    <div class="file-field input-field">
-      <div class="btn">
-        <span>File</span>
-        <input type="file">
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
-      </div>
-    </div>
-  </form>
-
-
-  <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-
-
-  <div class="fixed-action-btn">
-    <a class="btn-floating btn-large red">
-      <i class="large material-icons">mode_edit</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-    </ul>
-  </div> --}}
