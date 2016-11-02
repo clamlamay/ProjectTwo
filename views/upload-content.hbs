@@ -1,4 +1,68 @@
 <!--<form action="/submit/upload-content" method="post">-->
+    <!--<input type="text" name="title" placeholder="What's it all about?" >-->
+    <!--<input type="text" name="comment" placeholder="Tell us more!" >-->
+    <!--<input type="file" name="photo" placeholder="Upload your file here." >-->
+    <!--<input type="hidden" name="image_as_base64">-->
+    <!--<input type="submit" value="Upload">-->
+<!--</form>-->
+
+<form action="/submit/upload-content" method="post">
+    <input type="text" name="title" placeholder="What's it all about?" required>
+    <input type="text" name="comment" placeholder="Tell us more!" required>
+    <input type="file" name="photo" placeholder="Upload your file here." required>
+    <input type="hidden" name="image_as_base64">
+    <input type="submit" value="Upload">
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(event) {
+        // select our input DOM element with a type of file
+        var fileInput = document.querySelector('input[type="file"]');
+        var hiddenFileForParams = document.querySelector('input[type="hidden"]');
+
+        fileInput.addEventListener('change', function() {
+            var fileAsBase64 = convertToBase64(fileInput.files[0], hiddenFileForParams);
+            // now, you can sent your file over via an $ajax call in that callback
+        });
+
+        /**
+         * convertToBase64
+         * @param binaryData: Input data from an <input type="file">
+         * @param hiddenInput: input type='hidden' to contain base64
+         * @param callback: js method to call when completed
+         */
+        function convertToBase64(binaryData, hiddenInput, callback) {
+            // use a FileReader
+            // https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                // try to read whatever file has been 'readAsDataURL'
+                try {
+                    // event target result is our base64 encoded type
+                    // this is whatever file has been reader during 'readAsDataURL'
+                    console.log("File as base 64:");
+
+                    // pass our base64 object on to our callback
+                    hiddenInput.value = event.target.result;
+
+                    return(event.target.result);
+                    // catch an error if one occurs...
+                } catch (ex) {
+                    // output a warning in the DevTools console
+                    throw new Error("Couldn't convert file: " + ex);
+                }
+            }
+            // read the file argument
+            reader.readAsDataURL(binaryData);
+        };
+
+
+    });
+</script>
+
+
+<!--<form action="/submit/upload-content" method="post">-->
     <!--<input type="text" name="title" placeholder="What's it all about?" required>-->
     <!--<input type="text" name="location" placeholder="Upload your file here." required>-->
     <!--<input type="text" name="comment" placeholder="Tell us more!" required>-->
@@ -25,11 +89,33 @@
 
 
 
-<form action="/submit/upload-content" method="post" enctype="multipart/form-data">
-    <input type="text" name="title" placeholder="What's it all about?" required>
-    <input type="file" name="location" placeholder="Upload your file here." required>
-    <input type="text" name="comment" placeholder="Tell us more!" required>
-    <!--<input type="text" name="user_id" placeholder="user id" required>-->
+<!--<form action="/submit/upload-content" method="post" enctype="multipart/form-data">-->
+    <!--<input type="text" name="title" placeholder="What's it all about?" required>-->
+    <!--<input type="text" name="comment" placeholder="Tell us more!" required>-->
 
-    <input type="submit" value="Upload Image"></input>
-</form>
+
+
+    <!--&lt;!&ndash;<input type="file" name="img1" id="img1" onchange="document.getElementById('file_name').value = this.value.split('\\').pop().split('/').pop()" required>&ndash;&gt;-->
+    <!--&lt;!&ndash;<input type="text" name="file_name" id="file_name" required>&ndash;&gt;-->
+
+    <!--<input type="file" name="img1" id="img1" onchange="updateFileName()">-->
+    <!--<input type="text" name="file_name" id="file_name">-->
+
+    <!--&lt;!&ndash;<input type="file" name="location" placeholder="Upload your file here." required>&ndash;&gt;-->
+    <!--&lt;!&ndash;<input type="text" name="user_id" placeholder="user id" required>&ndash;&gt;-->
+
+    <!--<input type="submit" value="Upload Image"></input>-->
+<!--</form>-->
+
+
+
+<!--<script>-->
+
+    <!--function updateFileName() {-->
+        <!--var img1 = document.getElementById('img1');-->
+        <!--var file_name = document.getElementById('file_name');-->
+        <!--var fileNameIndex = img1.value.lastIndexOf("\\");-->
+
+        <!--file_name.value = img1.value.substring(fileNameIndex + 1);-->
+    <!--}-->
+<!--</script>-->

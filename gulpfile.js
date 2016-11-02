@@ -1,4 +1,5 @@
-'use strict';
+// 'use strict';
+// SET GLOBAL sql_mode='';
 
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');

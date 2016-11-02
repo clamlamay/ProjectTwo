@@ -1,4 +1,6 @@
-'use strict';
+// 'use strict';
+// SET GLOBAL sql_mode='';
+
 require('dotenv').config(); //# dot-env
 
 var db = require('knex')({	//# knex
