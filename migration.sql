@@ -11,12 +11,11 @@ create table users (
 
 create table contents (
 	id int not null auto_increment,
-	title varchar(255) not null,
-	location varchar(255) not null,
+	title varchar(255) not null ,
+	image text not null,
 	comment varchar(255) not null,
+	username varchar(100),
 	user_id int references users(id),
-	image varchar(255),
-	username varchar(255) references users(username),
 	primary key(id)
 );
 

@@ -5,3 +5,13 @@ Title: {{title}}
 Location: {{location}}
 <br>
 Comment: {{comment}}
+
+
+{{!-- {{#each contents}} --}}
+
+    <h4>{{this.i.attributes.username}}</h4>
+    <img src="{{this.attributes.location}}">
+    <p>{{this.attributes.title}}</p>
+    <p>{{this.attributes.comment}}</p>
+
+{{!-- {{/each}} --}}

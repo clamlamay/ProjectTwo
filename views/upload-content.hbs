@@ -1,22 +1,72 @@
+Welcome, {{this.attributes.username}}!
 
-
-
-
-
-
-  
-   Welcome {{username}}
-
-
-<div class="card-panel teal lighten-2">
-
-
-<form action="/upload-content" method="post">
+{{!-- <form action="/upload-content" method="post">
     <input type="text" name="title" placeholder="What's it all about?" required>
-    <input type="text" name="location" placeholder="Upload your file here." required>
+    <input type="text" name="image" placeholder="Upload your file here." required>
     <input type="text" name="comment" placeholder="Tell us more!" required>
     <input type="submit" value="Submit"></input>
+</form> --}}
+
+{{!--   <form action="/upload-content" method="post">
+    <input type="text" name="title" placeholder="What's it all about?" required>
+    <input type="text" name="comment" placeholder="Tell us more!" required>
+	   
+	    <div class="file-field input-field">
+	      <div class="btn">
+	        <span>File</span>
+	        <input type="file">
+	      </div>
+	      <div class="file-path-wrapper">
+        	<input class="file-path validate" type="text" name="image_as_base64">
+	      </div>
+	    </div>
+    	    <input type="submit" value="Submit"></input>
+
+  </form>
+ --}}
+   
+
+{{!-- JENS FORM THAT WORKS
+ --}} 
+
+<form action="/upload-content" method="post">
+    <input type="text"  name="title"    placeholder="What's it all about?" required>
+    <input type="text"  name="comment"  placeholder="Tell us more!" required>
+    
+    <input id="fileinput" type="file"   name="photo"    placeholder="Upload your file here." required>
+    <input type="hidden" name="image_as_base64">
+    <input id="addImage" type="submit"  value="Upload">
 </form>
 
+<div class="preview"></div>
 
-</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(event) {
+        var fileInput = document.querySelector('input[type="file"]');
+        var hiddenFileForParams = document.querySelector('input[type="hidden"]');
+        fileInput.addEventListener('change', function() {
+            var fileAsBase64 = convertToBase64(fileInput.files[0], hiddenFileForParams);
+            
+        });
+       
+        function convertToBase64(binaryData, hiddenInput, callback) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                try {
+                    console.log("File as base 64:");
+                    hiddenInput.value = event.target.result;
+                    return(event.target.result);
+                } catch (ex) {
+                    throw new Error("Couldn't convert file: " + ex);
+                }
+            }
+            reader.readAsDataURL(binaryData);
+        };
+    });
+</script>

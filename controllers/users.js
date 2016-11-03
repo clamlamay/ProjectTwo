@@ -12,6 +12,7 @@ router.get('/login', renderLogin);
 router.post('/login', userLogin);
 router.get('/logout', logOut); 
 
+router.get('/id/:id', renderPartyById);
 
 function createID (req, res, next) {
   console.log(req.session);
@@ -27,30 +28,10 @@ function createID (req, res, next) {
     req.session.user_id = result.attributes.id;
     console.log(result.attributes.username);
     req.session.isLoggedIn = true;
-    res.redirect('/upload-content');
+    res.render('upload-content', result);
  });
 };
 
-// function createID (req, res, next) {
-//   console.log(req.session);
-//   var password = req.body.password_hash;
-//   var salt = 10;
-//   var hash = bcrypt.hashSync(password, salt);
-//   var user = {
-//     username: req.body.username,
-//     password_hash: hash,
-//     email: req.body.email
-//     };
-//   var Model = new Account(user).save().then(function(result) {
-//     // console.log(user);
-//     // console.log(result.attributes.username);
-//     req.session.username = result.attributes.username;
-//     req.session.id = result.attributes.id;
-//     req.session.isLoggedIn = true;
-//     res.redirect('/upload-content');
-//     console.log(this.username);
-//  });
-// };
 
 function userLogin (req, res, next) {
   console.log(req.session);
@@ -65,12 +46,9 @@ function userLogin (req, res, next) {
             req.session.user_id = result.attributes.id;
             console.log(result.attributes.username);
             req.session.isLoggedIn = true;
-            // console.log(this.username);
-            // console.log(username);
-            res.redirect('/upload-content');
+            res.render('upload-content', result);
     });
   }};
-
 
 function comparePasswordHashes (input, db) {
   // var hash = createPasswordHash(input);
@@ -86,34 +64,11 @@ function renderLogin (req, res, next) {
 };
 
 function logOut (req, res, next){
-  req.session.isLoggedIn = false;
+  req.session = null;
   console.log(req.session);
   res.render('logout', {});
 };
 
-function renderSQL(req, res, next) {
-  Content.collection().fetch().then(function(models) {
-    res.json(models);
-  });
-};
-
-function renderALL(req, res, next){
-  Content.collection().fetch().then(function(models){
-    console.log(models);
-    res.render('all', models);
-  });
-};
-
-function sanitizeModelsToJsonArray(dbModels){
-  var ret = [];
-  var models = dbModelsmodels;
-  for (var item in dbModels) {
-    var rows = dbModels.models[item];
-    var attrs = row.attributes;
-    ret.push(attrs);
-  }
-  ret;
-};
 
 function renderPartyById(req, res, next) {
     // Call individual model
@@ -124,7 +79,7 @@ function renderPartyById(req, res, next) {
     Content.where({
         id: id
     }).fetch().then(function(model) {
-        res.render('party', model.attributes);
+        res.json(model);
     });
 };
 
