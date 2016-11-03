@@ -9,8 +9,8 @@ router.get('/form', renderForm);
 router.post('/register', createID);
 router.get('/login', renderLogin);
 router.post('/login', userLogin);
-router.get('/logout', renderLogout);
-//router.post('/logout', logOut);
+// router.get('/logout', renderLogout);
+router.get('/logout', logOut);
 
 function createID (req, res, next) {
     var password = req.body.password_hash;
@@ -21,7 +21,6 @@ function createID (req, res, next) {
         password_hash: hash,
         email: req.body.email
     };
-
     var Model = new Account(user).save().then(function(result) {
         console.log(user);
         // res.render('Welcome');
@@ -38,11 +37,11 @@ function createID (req, res, next) {
     })
 };
 
-
 function userLogin (req, res, next) {
     //console.log(req.session.user);
     if (req.session.isLoggedIn === true) {
-        res.end('is_already_logged_in');
+        res.redirect('/submit/upload-content');
+        // res.end('is_already_logged_in');
     } else {
     // var password = req.body.password_hash;
     Account.where('username', req.body.username).fetch().then(
@@ -50,20 +49,46 @@ function userLogin (req, res, next) {
 
             var attempt = comparePasswordHashes(req.body.password_hash, result.attributes.password_hash);
 
-            req.session.user_id = result.attributes.id ;
-            req.session.username = result.attributes.username;
-            req.session.isLoggedIn = true;
+            // *************
+            // TEST CODE
+            // var compareUser = compareUsername(req.body.username, result.attributes.username);
 
-            res.redirect('/submit/upload-content')
+            console.log(attempt);
+            // console.log(compareUser);
+
+            if (!attempt ) {
+
+                // ************************
+                // HAVEN'T BEEN ABLE TO APPEND <P> TO THE BODY TO TELL USER THAT THEIR PASSWORD IS INCORRECT
+                res.end('Your username or password is incorrect');
+
+            } else {
+
+                // END OF TEST CODE
+                // ****************
+
+                req.session.user_id = result.attributes.id;
+                req.session.username = result.attributes.username;
+                req.session.isLoggedIn = true;
+
+                res.redirect('/submit/upload-content')
+            }
         });
 }};
-
-
 
 function comparePasswordHashes (input, db) {
     // var hash = createPasswordHash(input);
     return bcrypt.compareSync(input, db);
 };
+
+// // COMPARING NAMES - TEST TEST TEST
+// function compareUsername (input, db) {
+//     // var hash = createPasswordHash(input);
+//     return bcrypt.compareSync(input, db);
+// };
+// //************************
+
+
 function renderForm (req, res, next) {
     res.render('form', {});
 };
@@ -71,17 +96,15 @@ function renderLogin (req, res, next) {
     res.render('login', {});
 };
 
-function renderLogout (req, res, next) {
-        req.session = null;
-        // res.send([
-        //     'You are now logged out.',
-        //     '&lt;br/>',
-        //     res.redirect('/')
-        // ].join(''));
-        console.log(req.session);
-        // res.end('bye');
-    res.render('index', {});
-};
+// function renderLogout (req, res, next) {
+//     req.session = null;
+//     res.render('index', {});
+// };
 
+function logOut (req, res, next){
+    req.session = null;
+    console.log(req.session);
+    res.render('logout', {});
+};
 
 module.exports = router;
