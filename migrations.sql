@@ -12,30 +12,14 @@ create table users (
 create table contents (
 	id int not null auto_increment,
 	title varchar(255) not null ,
-	location varchar(255) not null,
-	comment varchar(255) not null,
-	user_id int not null references users(id),
-	primary key(id)
-);
-
-
-create table contents (
-	id int not null auto_increment,
-	title varchar(255) not null ,
 	location text not null,
 	comment varchar(255) not null,
+	username varchar(100),
 	user_id int not null references users(id),
 	primary key(id)
 );
 
 insert into contents (id, title, location, comment, user_id) values ('1', 'cat', 'cat cat', 'meow', '1');
 
-
 create user 'admin'@'localhost' identified by 'admin';
 GRANT ALL PRIVILEGES ON clambake.* to 'admin'@'localhost';
-
-SELECT contents, comment
-	FROM `columns`
-	WHERE IS_NULLABLE = 'NO'
-		AND COLUMN_DEFAULT IS NULL
-		AND TABLE_SCHEMA= 'clambake';

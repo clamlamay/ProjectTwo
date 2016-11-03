@@ -3,9 +3,6 @@ var router = express.Router();
 var Account = require('../models/AccountModel');
 var bcrypt = require('bcryptjs');
 
-
-var identifier = 0 ;
-
 /* GET users listing. */
 
 router.get('/form', renderForm);
@@ -30,7 +27,8 @@ function createID (req, res, next) {
         // res.render('Welcome');
         //   console.log(result.attributes.id);
         //   req.session.online = result.attributes.id;
-        req.session.user = result.attributes.id ;
+        req.session.user_id = result.attributes.id ;
+        req.session.username = result.attributes.username;
         req.session.isLoggedIn = true;
         // // res.redirect('/')
         //  console.log(req.session);
@@ -51,20 +49,11 @@ function userLogin (req, res, next) {
         function(result) {
 
             var attempt = comparePasswordHashes(req.body.password_hash, result.attributes.password_hash);
-            // var id = result.attributes.id ;
 
-            //res.json({'user_id_is': id });
-
-            //console.log(req.session.id);
-            // req.session.id = result.attributes.id;
-            // req.session.username = result.attributes.username;
-            req.session.user = result.attributes.id ;
+            req.session.user_id = result.attributes.id ;
+            req.session.username = result.attributes.username;
             req.session.isLoggedIn = true;
-            // console.log(req.session);
 
-
-            // return result;
-            // res.json({'is_logged_in': attempt, 'user_id_is': id   });
             res.redirect('/submit/upload-content')
         });
 }};
@@ -83,7 +72,6 @@ function renderLogin (req, res, next) {
 };
 
 function renderLogout (req, res, next) {
-    function logOut (req, res, next){
         req.session = null;
         // res.send([
         //     'You are now logged out.',
@@ -92,8 +80,6 @@ function renderLogout (req, res, next) {
         // ].join(''));
         console.log(req.session);
         // res.end('bye');
-    };
-
     res.render('index', {});
 };
 

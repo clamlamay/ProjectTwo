@@ -6,18 +6,11 @@ var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var session   = require('express-session');
 
-var multer  = require('multer');
-var upload = multer({ dest: 'public/images/' })
-
-
-
 var routes  = require('./controllers/index');
 var users   = require('./controllers/users');
-// var usersLogin   = require('./controllers/usersLogin');
 var content = require('./controllers/content');
 
 var app = express();
-
 
 app.use(session({
   secret: 'whatever',
