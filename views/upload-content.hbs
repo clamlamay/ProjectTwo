@@ -5,7 +5,6 @@
     <!--<input type="hidden" name="image_as_base64">-->
     <!--<input type="submit" value="Upload">-->
 <!--</form>-->
-
 <form action="/submit/upload-content" method="post">
     <input type="text"  name="title"    placeholder="What's it all about?" required>
     <input type="text"  name="comment"  placeholder="Tell us more!" required>
@@ -16,35 +15,7 @@
 
 <div class="preview"></div>
 
-
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
-
-
-<!--<script type="text/javascript">-->
-    <!--$(document).ready(function() {-->
-        <!--$("#addImage").click(function() {-->
-            <!--$("#fileinput").click();-->
-        <!--});-->
-
-        <!--$("#fileinput").change(function() {-->
-            <!--if (this.files && this.files[0]) {-->
-                <!--var reader = new FileReader();-->
-                <!--reader.onload = imageIsLoaded;-->
-                <!--reader.readAsDataURL(this.files[0]);-->
-            <!--}-->
-        <!--});-->
-
-        <!--function imageIsLoaded(e) {-->
-            <!--var x = 'foo';-->
-            <!--var picture = '<img src="' + e.target.result + '" style="width:200px;height:200px;" class="' + x + 'thImage">'-->
-            <!--$(".preview").empty().append(picture);-->
-        <!--}-->
-
-    <!--});-->
-<!--</script>-->
 
 <script type="text/javascript">
     $(document).ready(function(event) {
@@ -91,62 +62,3 @@
 
     });
 </script>
-
-
-<!--<form action="/submit/upload-content" method="post">-->
-    <!--<input type="text" name="title" placeholder="What's it all about?" required>-->
-    <!--<input type="text" name="location" placeholder="Upload your file here." required>-->
-    <!--<input type="text" name="comment" placeholder="Tell us more!" required>-->
-    <!--&lt;!&ndash;<input type="text" name="user_id" placeholder="user id" required>&ndash;&gt;-->
-
-    <!--<input type="submit" value="Submit"></input>-->
-<!--</form>-->
-
-
-
-<!--<form enctype="multipart/form-data" action="/submit/upload-content" method="post">-->
-    <!--<input type="file" name="location" />-->
-    <!--<input type="submit" value="Upload Image" name="submit" />-->
-<!--</form>-->
-
-
-
-<!--<form action="/pictures/upload" method="POST" enctype="multipart/form-data">-->
-    <!--Select an image to upload:-->
-    <!--<input type="file" name="image">-->
-    <!--<input type="submit" value="Upload Image">-->
-<!--</form>-->
-
-
-
-
-<!--<form action="/submit/upload-content" method="post" enctype="multipart/form-data">-->
-    <!--<input type="text" name="title" placeholder="What's it all about?" required>-->
-    <!--<input type="text" name="comment" placeholder="Tell us more!" required>-->
-
-
-
-    <!--&lt;!&ndash;<input type="file" name="img1" id="img1" onchange="document.getElementById('file_name').value = this.value.split('\\').pop().split('/').pop()" required>&ndash;&gt;-->
-    <!--&lt;!&ndash;<input type="text" name="file_name" id="file_name" required>&ndash;&gt;-->
-
-    <!--<input type="file" name="img1" id="img1" onchange="updateFileName()">-->
-    <!--<input type="text" name="file_name" id="file_name">-->
-
-    <!--&lt;!&ndash;<input type="file" name="location" placeholder="Upload your file here." required>&ndash;&gt;-->
-    <!--&lt;!&ndash;<input type="text" name="user_id" placeholder="user id" required>&ndash;&gt;-->
-
-    <!--<input type="submit" value="Upload Image"></input>-->
-<!--</form>-->
-
-
-
-<!--<script>-->
-
-    <!--function updateFileName() {-->
-        <!--var img1 = document.getElementById('img1');-->
-        <!--var file_name = document.getElementById('file_name');-->
-        <!--var fileNameIndex = img1.value.lastIndexOf("\\");-->
-
-        <!--file_name.value = img1.value.substring(fileNameIndex + 1);-->
-    <!--}-->
-<!--</script>-->

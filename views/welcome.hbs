@@ -1,14 +1,9 @@
-
 {{#each this}}
 
-    <h4>{{this.attributes.username}}</h4>
+    <h5>{{this.attributes.title}}</h5>
     <img src="{{this.attributes.location}}">
-    <p>{{this.attributes.title}}</p>
+    <h4>Submitted by: {{this.attributes.username}}</h4>
     <p>{{this.attributes.comment}}</p>
 
 {{/each}}
 
-
-
-
-{{!-- <div>{{this.contents.0.attributes.comment}}</div> --}}
