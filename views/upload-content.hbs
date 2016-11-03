@@ -7,14 +7,45 @@
 <!--</form>-->
 
 <form action="/submit/upload-content" method="post">
-    <input type="text" name="title" placeholder="What's it all about?" required>
-    <input type="text" name="comment" placeholder="Tell us more!" required>
-    <input type="file" name="photo" placeholder="Upload your file here." required>
+    <input type="text"  name="title"    placeholder="What's it all about?" required>
+    <input type="text"  name="comment"  placeholder="Tell us more!" required>
+    <input id="fileinput" type="file"   name="photo"    placeholder="Upload your file here." required>
     <input type="hidden" name="image_as_base64">
-    <input type="submit" value="Upload">
+    <input id="addImage" type="submit"  value="Upload">
 </form>
 
+<div class="preview"></div>
+
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+
+
+<!--<script type="text/javascript">-->
+    <!--$(document).ready(function() {-->
+        <!--$("#addImage").click(function() {-->
+            <!--$("#fileinput").click();-->
+        <!--});-->
+
+        <!--$("#fileinput").change(function() {-->
+            <!--if (this.files && this.files[0]) {-->
+                <!--var reader = new FileReader();-->
+                <!--reader.onload = imageIsLoaded;-->
+                <!--reader.readAsDataURL(this.files[0]);-->
+            <!--}-->
+        <!--});-->
+
+        <!--function imageIsLoaded(e) {-->
+            <!--var x = 'foo';-->
+            <!--var picture = '<img src="' + e.target.result + '" style="width:200px;height:200px;" class="' + x + 'thImage">'-->
+            <!--$(".preview").empty().append(picture);-->
+        <!--}-->
+
+    <!--});-->
+<!--</script>-->
+
 <script type="text/javascript">
     $(document).ready(function(event) {
         // select our input DOM element with a type of file
