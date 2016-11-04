@@ -47,18 +47,16 @@ This content will then be displayed on the main page for registered users and no
 Users register by creating a unique user name, providing an e-mail address, and creating a password secured using bcrypt.
 
 #### __Login__
-Upon return to the site, registered users can login using their username and password (matched to encrypted password using bcrypt)/
+Upon return to the site, registered users can login using their username and password (matched to encrypted password using bcrypt).
 
 #### __Posting Content__
-Only registered and logged in users can post content - this is confirmed using Sessions. The submission form includes a field for a title, a comment to provide additional details about the post, and a photo upload. Images are stored as a string in the content table within the Clambake database. This content is then extracted and displayed on the content page.
+Only registered and logged in users can post content - this is confirmed using Sessions. The submission form includes a field for a title, a comment to provide additional details about the post, and a photo upload. Images are stored as a string in the content table within the Clambake database. This content is then extracted and displayed on the content page with most recently added items appearing at the top of the feed.
 
 ---
 
 ### __Unsolved Problems / Future Work__
 - [ ] 'Username is taken' functionality
 - [ ] Password reset and forgot username functionality
-- [ ] Post tags (by topic)
-- [ ] Display posts in ascending order (displaying most recent submissions first)
+- [ ] Topical tags to attach to posts
 - [ ] Include the date the post was authored
-- [ ] Post tags (by topic)
 - [ ] Display warning when size of file exceeds a certain size.

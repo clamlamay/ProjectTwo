@@ -50,10 +50,9 @@ router.get('/all', renderALL);
 
 function renderALL(req, res, next){
     Content.collection().fetch().then(function(models) {
-
         var posts = models.models;
+        posts.reverse();
         res.render('welcome', posts);
-
     })
 }
 
