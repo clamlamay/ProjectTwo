@@ -27,7 +27,7 @@ function renderForm(req, res, next) {
 router.post('/upload-content', function(req, res, next) {
         new Content({
             title: req.body.title,
-            location: req.body.image_as_base64,
+            image: req.body.image_as_base64,
             comment: req.body.comment,
             user_id: req.session.user_id,
             username: req.session.username
