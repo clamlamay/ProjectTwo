@@ -1,47 +1,30 @@
-Welcome, {{this.attributes.username}}!
 
-{{!-- <form action="/upload-content" method="post">
-    <input type="text" name="title" placeholder="What's it all about?" required>
-    <input type="text" name="image" placeholder="Upload your file here." required>
-    <input type="text" name="comment" placeholder="Tell us more!" required>
-    <input type="submit" value="Submit"></input>
-</form> --}}
+<div id="index-banner" class="parallax-container">
+    <h3>Welcome, {{this.attributes.username}}!<h3>
+    <h6>Please provide an eye catching title to your post! <br> In the description {insert something witty}. <h6> 
 
-{{!--   <form action="/upload-content" method="post">
-    <input type="text" name="title" placeholder="What's it all about?" required>
-    <input type="text" name="comment" placeholder="Tell us more!" required>
-	   
-	    <div class="file-field input-field">
-	      <div class="btn">
-	        <span>File</span>
-	        <input type="file">
-	      </div>
-	      <div class="file-path-wrapper">
-        	<input class="file-path validate" type="text" name="image_as_base64">
-	      </div>
-	    </div>
-    	    <input type="submit" value="Submit"></input>
-
-  </form>
- --}}
-   
-
-{{!-- JENS FORM THAT WORKS
- --}} 
-
-<form action="/upload-content" method="post">
-    <input type="text"  name="title"    placeholder="What's it all about?" required>
-    <input type="text"  name="comment"  placeholder="Tell us more!" required>
-    
-    <input id="fileinput" type="file"   name="photo"    placeholder="Upload your file here." required>
-    <input type="hidden" name="image_as_base64">
-    <input id="addImage" type="submit"  value="Upload">
-</form>
-
-<div class="preview"></div>
-
-
-
+    <p>
+      <form action="/upload-content" method="post">
+        <input type="text" name="title" placeholder="Title of your post" required>
+        <input type="text" name="comment" placeholder="Description!" required>
+    	   
+    	    <div class="file-field input-field">
+    	      <div class="btn">
+    	        <span>Upload</span>
+    	         <input id="fileinput" type="file" name="photo" placeholder="Upload your file here." required>
+    	      </div>
+    	      <div class="file-path-wrapper">
+            	<input type="hidden" name="image_as_base64">
+                <input class="file-path validate" type="text">
+    	      </div>
+    	    </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action" id="addImage">Submit Post
+        <i class="material-icons right">send</i></button>
+      </form>
+    </p>  
+    <br>
+    <br>
+</div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>

@@ -12,7 +12,7 @@ create table users (
 create table contents (
 	id int not null auto_increment,
 	title varchar(255) not null ,
-	image text not null,
+	image LONGTEXT not null,
 	comment varchar(255) not null,
 	username varchar(100),
 	user_id int references users(id),
